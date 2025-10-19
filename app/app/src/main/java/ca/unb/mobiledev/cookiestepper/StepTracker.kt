@@ -3,13 +3,8 @@ package ca.unb.mobiledev.cookiestepper
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import ca.unb.mobiledev.cookiestepper.databinding.ActivityMainBinding
 import ca.unb.mobiledev.cookiestepper.databinding.ActivityStepTrackerBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
 class StepTracker : AppCompatActivity() {
 
     private lateinit var binding : ActivityStepTrackerBinding
