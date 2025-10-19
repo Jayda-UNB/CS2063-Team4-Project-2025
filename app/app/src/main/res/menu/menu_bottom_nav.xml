@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuSteps"
+        android:title="@string/menu_step_title"
+        android:icon="@drawable/menu_step_icon"
+    />
+    <item
+        android:id="@+id/menuCalories"
+        android:title="@string/menu_calories_title"
+        android:icon="@drawable/menu_calories_icon"
+    />
+    <item
+        android:id="@+id/menuBMI"
+        android:title="@string/menu_bmi_title"
+        android:icon="@drawable/menu_bmi_icon"
+    />
+    <item
+        android:id="@+id/menuRewards"
+        android:title="@string/menu_rewards_title"
+        android:icon="@drawable/menu_rewards_icon"
+    />
+    <item
+        android:id="@+id/menuHistory"
+        android:title="@string/menu_history_title"
+        android:icon="@drawable/menu_history_icon"
+    />
+</menu>

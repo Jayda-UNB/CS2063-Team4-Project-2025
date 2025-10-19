@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cookie Stepper</string>
+    <string name="welcome_page_title">Welcome to Cookie Stepper!</string>
+    <string name="log_in_button">Log In</string>
+</resources>

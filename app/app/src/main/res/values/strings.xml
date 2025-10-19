@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Cookie Stepper</string>
+    <string name="welcome_page_title">Welcome to Cookie Stepper!</string>
+    <string name="log_in_button">Log In</string>
+    <string name="menu_step_title">Steps</string>
+    <string name="menu_calories_title">Calories</string>
+    <string name="menu_bmi_title">BMI</string>
+    <string name="menu_rewards_title">Rewards</string>
+    <string name="menu_history_title">History</string>
+    <string name="step_tracker_title">Step Tracker</string>
+    <string name="calorie_tracker_title">Calorie Tracker</string>
+    <string name="bmi_tracker_title">Body Measurements</string>
+    <string name="rewards_tracker_title">Rewards</string>
+    <string name="history_tracker_title">History</string>
+</resources>
