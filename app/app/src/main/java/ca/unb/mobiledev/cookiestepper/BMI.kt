@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +21,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class BMI : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var height: Double = 0.0
+    private var weight: Double = 0.0
+
+    private var steps: Int = 1000
+
+    private var caloriesBurnt: Double = 0.0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -35,6 +40,44 @@ class BMI : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_b_m_i, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val heightInput = view.findViewById<EditText>(R.id.editTextNumberDecimal2)
+        val weightInput = view.findViewById<EditText>(R.id.editTextNumberDecimal)
+        val submitBtn = view.findViewById<Button>(R.id.button)
+        val caloriesText = view.findViewById<TextView>(R.id.textView5)
+
+        submitBtn.setOnClickListener {
+            val heightText = heightInput.text.toString()
+            val weightText = weightInput.text.toString()
+
+            height = heightText.toDouble()
+            weight = weightText.toDouble()
+            if(height <= 165) {
+                caloriesBurnt = steps * (weight*0.0005)
+            }
+            else if(165 < height && height < 183) {
+                caloriesBurnt = steps * (weight*0.00055)
+            }
+            else if(height >= 183) {
+                caloriesBurnt = steps * (weight*0.0006)
+            }
+
+            val caloriesRounded = caloriesBurnt.toInt()
+
+
+            caloriesText.text = "Calories burnt: $caloriesRounded"
+
+            Toast.makeText(
+                requireContext(),
+                "Height: $height cm, Weight: $weight kg\nCalories Burnt: $caloriesBurnt",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
     }
 
     companion object {
