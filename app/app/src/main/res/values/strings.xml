@@ -8,8 +8,11 @@
     <string name="menu_rewards_title">Rewards</string>
     <string name="menu_history_title">History</string>
     <string name="step_tracker_title">Step Tracker</string>
-    <string name="calorie_tracker_title">Calorie Tracker</string>
+    <string name="calorie_tracker_title">Today\'s Calorie Intake:</string>
     <string name="bmi_tracker_title">Body Measurements</string>
     <string name="rewards_tracker_title">Rewards</string>
     <string name="history_tracker_title">History</string>
+    <string name="calorie_count">500/1,000kcal</string>
+    <string name="streak">Streak: 7 Days</string>
+    <string name="num_of_food_results">%1$d items</string>
 </resources>

@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CookieStepper">
         <activity
+            android:name=".FoodDetailActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AddFood"
+            android:exported="false" />
+        <activity
             android:name=".StepTracker"
             android:exported="false" />
         <activity

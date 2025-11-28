@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import ca.unb.mobiledev.cookiestepper.databinding.ActivityStepTrackerBinding
 class StepTracker : AppCompatActivity() {
-
     private lateinit var binding : ActivityStepTrackerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +37,7 @@ class StepTracker : AppCompatActivity() {
     private fun replaceFragment(fragment : Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout, fragment)
+        fragmentTransaction.replace(R.id.fragmentLayout, fragment)
         fragmentTransaction.commit()
     }
 }
