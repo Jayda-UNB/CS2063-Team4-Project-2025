@@ -71,14 +71,17 @@ class StepRepository(
     }
     //insert a new stepdata record
     suspend fun processAndInsertNewStepRecord(steps:Int){
+        var currentHeight = 170f //default height in cm
+        var currentWeight = 70f //default weight in kg
         //get user's latest profile data from database
         val profile = userProfile.firstOrNull()
-        if(profile == null){
-            return
+        if(profile != null){
+            currentHeight = profile.heightCm
+            currentWeight = profile.weightKg
         }
 
-        val distanceKm = calculateDistanceKm(steps, profile.heightCm)
-        val calories = calculateCalories(profile.weightKg, distanceKm)
+        val distanceKm = calculateDistanceKm(steps, currentHeight)
+        val calories = calculateCalories(currentWeight, distanceKm)
         val todayDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
 
         //Create record with current date
