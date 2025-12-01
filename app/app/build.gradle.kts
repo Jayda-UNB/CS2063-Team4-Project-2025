@@ -59,6 +59,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-fitness:21.3.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
     // ViewModel Components
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     ksp(libs.androidx.lifecycle.compiler)

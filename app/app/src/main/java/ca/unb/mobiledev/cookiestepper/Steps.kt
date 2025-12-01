@@ -1,7 +1,10 @@
 package ca.unb.mobiledev.cookiestepper
 
 import android.Manifest
-import android.content.ContentValues.TAG
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,24 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.common.GoogleApiAvailability
-import android.content.Context
+import ca.unb.mobiledev.cookiestepper.Service.StepService
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import ca.unb.mobiledev.cookiestepper.ui.StepViewModel
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.fitness.FitnessLocal
 import com.google.android.gms.fitness.LocalRecordingClient
-import com.google.android.gms.fitness.data.LocalDataSet
-import com.google.android.gms.fitness.data.LocalDataType
-import com.google.android.gms.fitness.request.LocalDataReadRequest
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +35,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Steps.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("DEPRECATION")
 class Steps : Fragment() {
 
     //viewmodel and ui properties
@@ -52,7 +49,7 @@ class Steps : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var stepCount: Int = 0;
-    private lateinit var localRecordingClient: LocalRecordingClient
+
 
 
     private  val requestPermissionLauncher = registerForActivityResult(
@@ -60,6 +57,7 @@ class Steps : Fragment() {
     ){ isGranted: Boolean ->
         if(isGranted){
             Log.i(TAG, "ACTIVITY_RECOGNITION permission granted.")
+            startStepService()
         }
         else{
             Log.e(TAG, "ACTIVITY_RECOGNITION permission denied")
@@ -79,9 +77,7 @@ class Steps : Fragment() {
         }
 
         //initialize the viewModel using the Factory
-        val app = requireActivity().application as App
-        val factory = StepViewModel.Factory(app.repository)
-        stepViewModel = ViewModelProvider(this, factory)[StepViewModel::class.java]
+        stepViewModel = ViewModelProvider(this, StepViewModel.Factory)[StepViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -99,14 +95,10 @@ class Steps : Fragment() {
         caloriesTextView = view.findViewById(R.id.current_calorie_text)
         testButton = view.findViewById(R.id.test_calculation_button)
 
-        //set up temp button to verify calculation logic
         testButton.setOnClickListener {
-            //test profile for calculation (175cm, 70kg)
-            stepViewModel.saveUserProfile(175f, 70f)
-
-            //simulate 500 steps update
-            stepViewModel.simulateStepsUpdate(500)
-            Toast.makeText(requireContext(), "Simulated 500 steps. Check UI updates.", Toast.LENGTH_SHORT).show()
+            stopStepService()
+            startStepService()
+            Toast.makeText(requireContext(), "Steps Refreshing...", Toast. LENGTH_SHORT).show()
         }
 
         //observe live data
@@ -130,8 +122,6 @@ class Steps : Fragment() {
         })
 
 
-        localRecordingClient = FitnessLocal.getLocalRecordingClient(requireContext())
-
         //check for minimum play services version
         val hasMinPlayServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(requireContext(),LocalRecordingClient.LOCAL_RECORDING_CLIENT_MIN_VERSION_CODE)
         if(hasMinPlayServices != ConnectionResult.SUCCESS){
@@ -150,8 +140,7 @@ class Steps : Fragment() {
                 Manifest.permission.ACTIVITY_RECOGNITION
             )
             } == android.content.pm.PackageManager.PERMISSION_GRANTED){
-            //permission already granted, subscribe immediately
-            subscribe()
+            startStepService()
         }else{
             //request permission
             requestPermissionLauncher.launch(Manifest.permission.ACTIVITY_RECOGNITION)
@@ -160,70 +149,18 @@ class Steps : Fragment() {
 
     }
 
-    fun readData() {
-        val endTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-        val startTime = endTime.minusWeeks(1)
-        val readRequest =
-            LocalDataReadRequest.Builder()
-                .aggregate(LocalDataType.TYPE_STEP_COUNT_DELTA)
-                .bucketByTime(1, TimeUnit.DAYS)
-                .setTimeRange(startTime.toEpochSecond(), endTime.toEpochSecond(), TimeUnit.SECONDS)
-                .build()
 
-        localRecordingClient.readData(readRequest).addOnSuccessListener { response ->
-            for (dataSet in response.buckets.flatMap { it.dataSets }) {
-                dumpDataSet(dataSet)
-            }
-        }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "There was an error reading data", e)
-            }
+    private fun startStepService(){
+        val intent = Intent(requireContext(), StepService::class.java)
+        ContextCompat.startForegroundService(requireContext(), intent)
+        Log.i(TAG,"StepService requested to start.")
     }
 
-
-
-    fun dumpDataSet(dataSet : LocalDataSet){
-        Log.i(TAG,"Data returned for Data type: ${dataSet.dataType.name}")
-        for (dp in dataSet.dataPoints){
-            Log.i(TAG,"Data point:")
-            Log.i(TAG,"\tType: ${dp.dataType.name}")
-            Log.i(TAG, "\tStart: ${dp.getStartTime(TimeUnit.HOURS)}")
-            Log.i(TAG,"\tEnd: ${dp.getEndTime(TimeUnit.HOURS)}")
-            for(field in dp.dataType.fields){
-                Log.i(TAG,"\tLocalField: ${field.name.toString()} Local: ${dp.getValue(field)}")
-            }
-        }
+    fun stopStepService(){
+        val intent = Intent(requireContext(), StepService::class.java)
+        requireContext().stopService(intent)
+        Log.i(TAG, "StepService stopped.")
     }
-
-    //@RequiresPermission(Manifest.permission.ACTIVITY_RECOGNITION)
-    fun subscribe() {
-        //subscribe to steps data
-        @Suppress("MissingPermission")
-        localRecordingClient.subscribe(LocalDataType.TYPE_STEP_COUNT_DELTA)
-            .addOnSuccessListener {
-                Log.i(TAG, "Successfully subscriber!")
-                Toast.makeText(requireContext(),
-                    "Step Tracking Started!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "There was a problem subscribing", e)
-            }
-    }
-    fun unsubscribe() {
-        val localRecordingClient = FitnessLocal.getLocalRecordingClient(requireContext())
-        //unsubscribe from steps data
-        localRecordingClient.unsubscribe(LocalDataType.TYPE_STEP_COUNT_DELTA)
-            .addOnSuccessListener {
-                Log.i(TAG,"Successfully unsubscribed!")
-            }
-            .addOnFailureListener { e ->
-                Log.w(TAG, "There was a problem unsubscribing", e)
-            }
-    }
-
-
 
     companion object{
         /**
@@ -242,6 +179,10 @@ class Steps : Fragment() {
                         putString(ARG_PARAM2, param2)
                     }
                 }
+
+            // String for LogCat documentation
+            private const val TAG = "Steps Fragment"
+
     }
 
 }
