@@ -215,9 +215,9 @@ class StepService : Service() {
 
             Log.i(TAG, "Total steps calculated for today: $totalStepsToday")
 
-            if (totalStepsToday > 0) {
+            if (totalStepsToday >=0) {
                 //update local repository
-                stepViewModel.recordNewSteps(totalStepsToday)
+                stepViewModel.setAbsoluteDailySteps(totalStepsToday)
                 Log.d(TAG, "Step data sent to ViewModel for processing: $totalStepsToday")
             }
         }

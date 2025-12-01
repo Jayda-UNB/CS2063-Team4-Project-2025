@@ -93,13 +93,6 @@ class Steps : Fragment() {
         stepsTextView = view.findViewById(R.id.current_steps_text)
         distanceTextView = view.findViewById(R.id.current_distance_text)
         caloriesTextView = view.findViewById(R.id.current_calorie_text)
-        testButton = view.findViewById(R.id.test_calculation_button)
-
-        testButton.setOnClickListener {
-            stopStepService()
-            startStepService()
-            Toast.makeText(requireContext(), "Steps Refreshing...", Toast. LENGTH_SHORT).show()
-        }
 
         //observe live data
         stepViewModel.todayStepData.observe(viewLifecycleOwner, Observer{ stepData ->
@@ -156,11 +149,6 @@ class Steps : Fragment() {
         Log.i(TAG,"StepService requested to start.")
     }
 
-    fun stopStepService(){
-        val intent = Intent(requireContext(), StepService::class.java)
-        requireContext().stopService(intent)
-        Log.i(TAG, "StepService stopped.")
-    }
 
     companion object{
         /**
