@@ -49,8 +49,8 @@ class StepViewModel (
         repository.saveUserProfile(heightCm, weightKg)
     }
 
-    fun recordNewSteps(steps: Int) = viewModelScope.launch{
-        repository.processAndInsertNewStepRecord(steps)
+    fun setAbsoluteDailySteps(absoluteTotalSteps: Int) = viewModelScope.launch{
+        repository.setTodaySteps(absoluteTotalSteps)
     }
 
 
