@@ -7,6 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import ca.unb.mobiledev.cookiestepper.ui.FoodLogViewModel
+import com.google.android.material.progressindicator.LinearProgressIndicator
+import java.time.LocalDate
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,12 @@ class Calories : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var foodLogViewModel: FoodLogViewModel
+    private lateinit var calorieCountText: TextView
+    private lateinit var calorieProgressBar: LinearProgressIndicator
+
+    private val dailyCalorieGoal = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +52,10 @@ class Calories : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        calorieCountText = view.findViewById(R.id.calorieCountText)
+        calorieProgressBar = view.findViewById(R.id.calorieProgressBar)
+
         val addFoodButton = view.findViewById<Button>(R.id.addFoodButton)
         val foodHistoryButton = view.findViewById<Button>(R.id.foodHistoryButton)
 
@@ -51,6 +66,17 @@ class Calories : Fragment() {
         foodHistoryButton.setOnClickListener {
             val foodHistoryIntent = Intent(this.activity, FoodHistory::class.java)
             startActivity(foodHistoryIntent)
+        }
+
+        foodLogViewModel = ViewModelProvider(requireActivity())[FoodLogViewModel::class.java]
+        val today = LocalDate.now().toString()
+
+        foodLogViewModel.getTotalCaloriesForDate(today).observe(viewLifecycleOwner) { total ->
+            val consumed = (total ?: 0.0).toInt()
+            calorieCountText.text = "$consumed/$dailyCalorieGoal kcal"
+
+            val percent = (consumed * 100 / dailyCalorieGoal).coerceIn(0,100)
+            calorieProgressBar.setProgressCompat(percent, true)
         }
     }
 
