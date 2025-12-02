@@ -1,8 +1,6 @@
 package ca.unb.mobiledev.cookiestepper
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -12,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import ca.unb.mobiledev.cookiestepper.dao.FoodLogDao
 import ca.unb.mobiledev.cookiestepper.entities.FoodLogEntry
 import ca.unb.mobiledev.cookiestepper.ui.FoodLogViewModel
 import java.time.LocalDate
@@ -37,22 +34,20 @@ class FoodDetailActivity : AppCompatActivity() {
         }
 
         val intent = intent
-
+        //Getting intent extras
         foodId = intent.getIntExtra("food_id", -1)
         foodName = intent.getStringExtra("food_description")
         kcalPer100g = intent.getDoubleExtra("food_kcal_per_100g", 0.0)
 
         viewModel = ViewModelProvider(this)[FoodLogViewModel::class.java]
 
-        // Lookup the action bar as defined in the layout file
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
-            // This gives us the return arrow button in the action bar
             setDisplayHomeAsUpEnabled(true)
         }
         actionBar?.title = foodName
 
-
+        //Updating text views
         val nameText = findViewById<TextView>(R.id.nameTextView)
         nameText.text = foodName
 
@@ -66,9 +61,9 @@ class FoodDetailActivity : AppCompatActivity() {
             detailText += "\nFDC ID: $foodId"
         }
         descText.text = detailText
-        descText.movementMethod = ScrollingMovementMethod()
         val incButton = findViewById<Button>(R.id.incrementButton)
 
+        //Setting button listeners
         incButton?.setOnClickListener {
             incrementPortion(portionText)
         }
@@ -85,10 +80,9 @@ class FoodDetailActivity : AppCompatActivity() {
         }
     }
 
+    //Function to enable back button usage for the action bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Destroy the activity and go back to the parent activity
-        // This is specified by using android:parentActivityName=".MainActivity" in the
-        // AndroidManifest.xml file
         if (item.itemId == android.R.id.home) {
             onBackPressedDispatcher.onBackPressed()
             return true
@@ -96,11 +90,13 @@ class FoodDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //Function to increment portion count
     fun incrementPortion(portionText: TextView) {
         portionNum++
         portionText.text = getString(R.string.portion_size_text, portionNum)
     }
 
+    //Function to decrement portion count
     fun decrementPortion(portionText: TextView) {
         if(portionNum > 0){
             portionNum--
@@ -108,6 +104,7 @@ class FoodDetailActivity : AppCompatActivity() {
         }
     }
 
+    //Function to add a food item to the database
     fun confirmFood() {
         if(portionNum == 0){
             Toast.makeText(this, "Please select at least 1 portion", Toast.LENGTH_SHORT).show()

@@ -17,7 +17,6 @@ import java.time.LocalDate
 class FoodHistory : AppCompatActivity() {
 
     private lateinit var foodViewModel: FoodLogViewModel
-    private lateinit var adapter: FoodHistoryAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var resultView: TextView
 
@@ -55,6 +54,7 @@ class FoodHistory : AppCompatActivity() {
 
     }
 
+    //Function to update food history list
     private fun updateListView(entries: List<FoodLogEntry>) {
         if(entries.isNotEmpty()) {
             recyclerView.adapter = FoodHistoryAdapter(entries) { entry ->
@@ -68,8 +68,7 @@ class FoodHistory : AppCompatActivity() {
         }
     }
 
-
-
+    //Function to enable back button usage in the action bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Destroy the activity and go back to the parent activity
         // This is specified by using android:parentActivityName=".MainActivity" in the

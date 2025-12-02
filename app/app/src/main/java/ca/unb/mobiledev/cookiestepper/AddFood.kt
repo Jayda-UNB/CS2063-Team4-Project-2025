@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import mobiledev.unb.ca.threadinglab.models.Food
+import ca.unb.mobiledev.cookiestepper.models.Food
 import mobiledev.unb.ca.threadinglab.utils.FoodJsonUtils
 
 class AddFood : AppCompatActivity() {
@@ -25,7 +25,6 @@ class AddFood : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchEditText: EditText
     private lateinit var resultsTextView: TextView
-
     private var foodsList: List<Food> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +39,8 @@ class AddFood : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
-            // This gives us the return arrow button in the action bar
             setDisplayHomeAsUpEnabled(true)
         }
-
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -53,6 +50,7 @@ class AddFood : AppCompatActivity() {
 
         resultsTextView.text = "Loading foods list..."
 
+        //Threading to load JSON
         lifecycleScope.launch(Dispatchers.IO) {
             val jsonUtils = FoodJsonUtils(applicationContext)
             val foods = jsonUtils.foods
@@ -82,6 +80,7 @@ class AddFood : AppCompatActivity() {
         }
     }
 
+    //Function to search the food list by name
     private fun searchFoodsByName(name: String) {
         val trimmed = name.trim()
         if(trimmed.isEmpty()) {
@@ -101,9 +100,9 @@ class AddFood : AppCompatActivity() {
             fullListView()
             Toast.makeText(this, "No items found", Toast.LENGTH_SHORT).show()
         }
-        //searchEditText.text.clear()
     }
 
+    //Function to show the full food list
     private fun fullListView() {
         if(foodsList.isNotEmpty()) {
             updateListView(foodsList)
@@ -115,6 +114,7 @@ class AddFood : AppCompatActivity() {
         }
     }
 
+    //Function to update the food list
     private fun updateListView(items: List<Food>) {
         recyclerView.adapter = FoodAdapter(items) { item ->
             val intent: Intent = Intent(this, FoodDetailActivity::class.java)
@@ -126,6 +126,7 @@ class AddFood : AppCompatActivity() {
         }
     }
 
+    //Function to enable back button usage in the action bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Destroy the activity and go back to the parent activity
         // This is specified by using android:parentActivityName=".MainActivity" in the

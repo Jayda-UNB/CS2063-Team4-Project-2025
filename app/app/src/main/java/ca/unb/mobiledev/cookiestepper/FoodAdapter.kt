@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import mobiledev.unb.ca.threadinglab.models.Food
+import ca.unb.mobiledev.cookiestepper.models.Food
 
 /**
  * Class used to populate each row of the RecyclerView
@@ -27,7 +27,7 @@ class FoodAdapter(private var foodList: List<Food>, private val listener: (Food)
         holder: MyViewHolder,
         position: Int
     ) {
-        // Get the Food at index position in courseList
+        // Get the Food at index position in foodList
         val food = foodList[position]
 
         holder.foodNameTextView.text = food.description
@@ -36,13 +36,9 @@ class FoodAdapter(private var foodList: List<Food>, private val listener: (Food)
         holder.itemView.setOnClickListener { listener(food) }
     }
 
+    //Function to get number of items
     override fun getItemCount(): Int {
         return foodList.size
-    }
-
-    fun updateList(newList: List<Food>) {
-        foodList = newList
-        notifyDataSetChanged()
     }
 
     // Inner ViewHolder Class

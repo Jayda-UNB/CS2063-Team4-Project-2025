@@ -10,10 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import ca.unb.mobiledev.cookiestepper.R
-import androidx.fragment.app.FragmentContainerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.util.zip.Inflater
 
 class RewardsFragment: Fragment() {
 

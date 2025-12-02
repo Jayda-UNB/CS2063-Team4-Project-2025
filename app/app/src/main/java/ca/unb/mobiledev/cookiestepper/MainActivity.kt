@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //supportActionBar?.hide()
         val logInButton = findViewById<Button>(R.id.logInButton)
 
         logInButton.setOnClickListener {

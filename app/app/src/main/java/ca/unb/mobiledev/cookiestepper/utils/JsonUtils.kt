@@ -2,8 +2,8 @@ package mobiledev.unb.ca.threadinglab.utils
 
 import android.content.Context
 import android.content.res.AssetManager
-import mobiledev.unb.ca.threadinglab.models.Food
-import mobiledev.unb.ca.threadinglab.models.FoodPortion
+import ca.unb.mobiledev.cookiestepper.models.Food
+import ca.unb.mobiledev.cookiestepper.models.FoodPortion
 import org.json.JSONObject
 import org.json.JSONException
 import java.io.BufferedReader
@@ -42,6 +42,7 @@ class FoodJsonUtils(context: Context) {
                             break
                         }
                     }
+
                     val portions = ArrayList<FoodPortion>()
 
                     if(foodObj.has(KEY_FOOD_PORTIONS)) {

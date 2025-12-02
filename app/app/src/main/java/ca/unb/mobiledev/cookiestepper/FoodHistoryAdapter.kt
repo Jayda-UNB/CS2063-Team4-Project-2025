@@ -27,7 +27,7 @@ class FoodHistoryAdapter(private var entries: List<FoodLogEntry>, private val li
         holder: MyViewHolder,
         position: Int
     ) {
-        // Get the Food at index position in courseList
+        // Get the Food at index position in foodList
         val entry = entries[position]
 
         val portionsText = "${entry.portionCount} portion" + if(entry.portionCount != 1) "s" else ""
@@ -40,13 +40,9 @@ class FoodHistoryAdapter(private var entries: List<FoodLogEntry>, private val li
         holder.itemView.setOnClickListener { listener(entry) }
     }
 
+    //Function to get item count
     override fun getItemCount(): Int {
         return entries.size
-    }
-
-    fun updateList(newEntries: List<FoodLogEntry>) {
-        entries = newEntries
-        notifyDataSetChanged()
     }
 
     // Inner ViewHolder Class

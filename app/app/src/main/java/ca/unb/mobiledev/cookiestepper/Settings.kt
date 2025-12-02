@@ -1,6 +1,5 @@
 package ca.unb.mobiledev.cookiestepper
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
@@ -25,10 +24,9 @@ class Settings : AppCompatActivity() {
         }
     }
 
+    //Function to enable back button usage in action bar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Destroy the activity and go back to the parent activity
-        // This is specified by using android:parentActivityName=".MainActivity" in the
-        // AndroidManifest.xml file
         if (item.itemId == android.R.id.home) {
             onBackPressedDispatcher.onBackPressed()
             return true
