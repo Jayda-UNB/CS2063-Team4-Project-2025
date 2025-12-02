@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/caloriesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Calories">
@@ -10,8 +12,90 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/calorie_tracker_title"
-        android:textSize="34sp"
+        android:textSize="38sp"
         android:textStyle="bold"
-        android:layout_gravity="center"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/calorieCountText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+    <TextView
+        android:id="@+id/calorieCountText"
+        android:text="@string/calorie_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
 
-</FrameLayout>
+        />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/calorieProgressBar"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0"
+        app:trackThickness="15dp"
+        app:layout_constraintBottom_toTopOf="@id/streakButton"
+        app:layout_constraintEnd_toEndOf="@+id/caloriesTextView"
+        app:layout_constraintStart_toStartOf="@+id/caloriesTextView"
+        app:layout_constraintTop_toBottomOf="@+id/calorieCountText"
+        />
+
+    <Button
+        android:id="@+id/streakButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="110dp"
+        android:text="@string/streak"
+        android:textSize="30sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calorieProgressBar"
+        app:layout_constraintBottom_toTopOf="@id/addFoodButton"
+        />
+
+    <Button
+        android:id="@+id/addFoodButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Food"
+        app:layout_constraintTop_toBottomOf="@id/streakButton"
+        app:layout_constraintBottom_toTopOf="@id/foodHistoryButton"
+        app:layout_constraintStart_toStartOf="@id/calorieProgressBar"
+        app:layout_constraintEnd_toEndOf="@id/calorieProgressBar"
+        android:paddingHorizontal="125dp"
+        android:paddingVertical="20dp"
+        />
+    <Button
+        android:id="@+id/foodHistoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Food History"
+        app:layout_constraintTop_toBottomOf="@id/addFoodButton"
+        app:layout_constraintBottom_toTopOf="@id/setDailyButton"
+        app:layout_constraintStart_toStartOf="@id/calorieProgressBar"
+        app:layout_constraintEnd_toEndOf="@id/calorieProgressBar"
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="100dp"
+        />
+    <Button
+        android:id="@+id/setDailyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Daily Goal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foodHistoryButton"
+        app:layout_constraintStart_toStartOf="@id/calorieProgressBar"
+        app:layout_constraintEnd_toEndOf="@id/calorieProgressBar"
+        android:paddingHorizontal="115dp"
+        android:paddingVertical="20dp"
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
