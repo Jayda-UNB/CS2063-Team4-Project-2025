@@ -6,7 +6,6 @@ import ca.unb.mobiledev.cookiestepper.dao.UserProfileDao
 import ca.unb.mobiledev.cookiestepper.entities.StepData
 import ca.unb.mobiledev.cookiestepper.entities.UserProfile
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

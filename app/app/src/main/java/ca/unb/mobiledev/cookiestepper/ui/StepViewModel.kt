@@ -2,7 +2,6 @@ package ca.unb.mobiledev.cookiestepper.ui
 
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -31,16 +30,16 @@ class StepViewModel (
             this(repository, SavedStateHandle())
 
     //live data for UI observation
-    //total steps taken across all time
+    //total steps taken across all time -- not using right now since history hasn't been implemented
     val totalStepsLifetime: LiveData<Int?> = repository.totalStepsLifetime.asLiveData()
 
     //daily step data for current day
     val todayStepData: LiveData<StepData?> = repository.getTodayStepDataFlow().asLiveData()
 
-    //user's profile
+    //user's profile -- not using right now as we are pre loading a user profile for now
     val userProfile: LiveData<UserProfile?> = repository.userProfile.asLiveData()
 
-    //last 7 days of data
+    //last 7 days of data -- not using right now since history hasn't been implemented
     val lastSevenDaysData: LiveData<List<StepData>> = repository.lastSevenDaysData.asLiveData()
 
     //write operations

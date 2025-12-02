@@ -20,17 +20,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.widget.Toast
-import ca.unb.mobiledev.cookiestepper.Constants
 import ca.unb.mobiledev.cookiestepper.R
 import ca.unb.mobiledev.cookiestepper.MainActivity
 import com.google.android.gms.fitness.FitnessLocal
 import com.google.android.gms.fitness.LocalRecordingClient
-import com.google.android.gms.fitness.data.LocalDataSet
 import com.google.android.gms.fitness.data.LocalDataType
 import com.google.android.gms.fitness.data.LocalField
 import com.google.android.gms.fitness.request.LocalDataReadRequest
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import ca.unb.mobiledev.cookiestepper.repositories.StepRepository
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 import android.os.Handler
@@ -39,11 +35,9 @@ import android.os.Looper
 
 //Foreground service responsible for continuous, background step tracking
 
-@Suppress("DEPRECATION")
 class StepService : Service() {
 
     private lateinit var stepViewModel: StepViewModel
-    private lateinit var stepRepository: StepRepository
     private val NOTIFICATION_CHANNEL_ID = "step_tracker_channel"
     private val NOTIFICATION_ID = 101
     private lateinit var localRecordingClient: LocalRecordingClient
@@ -226,32 +220,6 @@ class StepService : Service() {
             }
     }
 
-/*
-    fun processAndSaveData(dataSet: LocalDataSet) {
-        Log.i(TAG, "Data returned for Data type: ${dataSet.dataType.name}")
-
-        val expectedField = LocalField.FIELD_STEPS
-        for (dp in dataSet.dataPoints) {
-            for (field in dp.dataType.fields) {
-                if (field == expectedField) {
-                    val steps = dp.getValue(field).asInt()
-                    Log.i(TAG, "Processing Step Value: $steps")
-                    if(steps > 0) {
-                        //update local repository
-                        stepViewModel.recordNewSteps(steps)
-                        Log.i(TAG, "Recorded steps: $steps")
-
-                        val updateIntent = Intent(Constants.ACTION_STEPS_UPDATE).apply{
-                            putExtra(Constants.EXTRA_STEPS_COUNT,steps)
-                        }
-                        LocalBroadcastManager.getInstance(this).sendBroadcast(updateIntent)
-                    }else{
-                        Log.i(TAG, "Steps were 0, not saving.")
-                    }
-                }
-            }
-        }
-    }*/
 
 
     companion object {
