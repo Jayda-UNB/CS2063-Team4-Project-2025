@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import ca.unb.mobiledev.cookiestepper.Shop.RewardsFragment
 import ca.unb.mobiledev.cookiestepper.databinding.ActivityStepTrackerBinding
 class StepTracker : AppCompatActivity() {
     private lateinit var binding : ActivityStepTrackerBinding
@@ -31,7 +32,7 @@ class StepTracker : AppCompatActivity() {
                 R.id.menuSteps -> replaceFragment(Steps())
                 R.id.menuCalories -> replaceFragment(Calories())
                 R.id.menuBMI -> replaceFragment(BMI())
-                R.id.menuRewards -> replaceFragment(Rewards())
+                R.id.menuRewards -> replaceFragment(RewardsFragment())
                 R.id.menuHistory -> replaceFragment(History())
 
                 else -> {
