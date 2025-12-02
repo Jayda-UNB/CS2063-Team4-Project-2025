@@ -16,7 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [StepData::class, UserProfile::class, FoodLogEntry::class], version = 2, exportSchema = false)
+@Database(entities = [StepData::class, UserProfile::class, FoodLogEntry::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     //abstract getter for the data access object
     abstract fun stepDao(): StepDao
