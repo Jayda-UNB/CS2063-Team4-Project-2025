@@ -48,7 +48,6 @@ class BMI : Fragment() {
         val heightInput = view.findViewById<EditText>(R.id.editTextNumberDecimal2)
         val weightInput = view.findViewById<EditText>(R.id.editTextNumberDecimal)
         val submitBtn = view.findViewById<Button>(R.id.button)
-        val caloriesText = view.findViewById<TextView>(R.id.textView5)
 
         submitBtn.setOnClickListener {
             val heightText = heightInput.text.toString()
@@ -68,8 +67,6 @@ class BMI : Fragment() {
 
             val caloriesRounded = caloriesBurnt.toInt()
 
-
-            caloriesText.text = "Calories burnt: $caloriesRounded"
 
             Toast.makeText(
                 requireContext(),
