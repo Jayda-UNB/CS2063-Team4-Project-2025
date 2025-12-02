@@ -6,16 +6,25 @@
     android:padding="16dp">
 
     <!-- Title -->
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rewards Shop"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingBottom="12dp" />
 
     <!-- Progress bar (optional) -->
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:text="Rewards Shop"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/pointsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current Points : 0" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

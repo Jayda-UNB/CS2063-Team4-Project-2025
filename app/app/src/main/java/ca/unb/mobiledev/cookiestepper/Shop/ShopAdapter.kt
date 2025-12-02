@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import ca.unb.mobiledev.cookiestepper.R
 
@@ -52,7 +53,17 @@ class ShopAdapter (
         holder.name.text = item.name
         holder.price.text = "Price: ${item.price} points"
         holder.buyButton.setOnClickListener {
-            onBuyClick(item)
+            if(item.purchased == false && Points.points >= item.price) {
+                item.purchased = true
+                onBuyClick(item)
+                holder.buyButton.text = "Equip"
+            } else if (item.purchased){
+                Toast.makeText(holder.itemView.context, "${item.name} equiped", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(holder.itemView.context, "Not enough points", Toast.LENGTH_SHORT).show()
+
+            }
         }
     }
 
