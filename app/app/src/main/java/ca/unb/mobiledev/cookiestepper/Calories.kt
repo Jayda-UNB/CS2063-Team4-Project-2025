@@ -42,10 +42,15 @@ class Calories : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val addFoodButton = view.findViewById<Button>(R.id.addFoodButton)
+        val foodHistoryButton = view.findViewById<Button>(R.id.foodHistoryButton)
 
         addFoodButton?.setOnClickListener {
             val addFoodIntent = Intent(this.activity, AddFood::class.java)
             startActivity(addFoodIntent)
+        }
+        foodHistoryButton.setOnClickListener {
+            val foodHistoryIntent = Intent(this.activity, FoodHistory::class.java)
+            startActivity(foodHistoryIntent)
         }
     }
 

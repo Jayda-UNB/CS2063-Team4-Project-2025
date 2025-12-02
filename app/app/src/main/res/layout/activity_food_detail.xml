@@ -41,4 +41,39 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         />
+
+    <Button
+        android:id="@+id/incrementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/descriptionTextview"
+        android:layout_below="@+id/portionTextView"
+        android:layout_marginTop="0dp"
+        android:text="Add" />
+
+    <Button
+        android:id="@+id/decrementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/portionTextView"
+        android:layout_toRightOf="@+id/incrementButton"
+        android:text="Remove"
+        />
+
+    <TextView
+        android:id="@+id/portionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/descriptionTextview"
+        android:text="@string/portion_size_text"
+        android:layout_below="@+id/descriptionTextview"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Food Eaten"
+        android:layout_centerInParent="true"
+        android:id="@+id/confirmFoodButton"
+        />
 </RelativeLayout>

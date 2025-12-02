@@ -20,10 +20,14 @@
             android:exported="false"
             android:foregroundServiceType="health">
         </service>
+        <activity android:name=".FoodHistory"
+            android:exported="false" />
         <activity
             android:name=".FoodDetailActivity"
             android:exported="false"/>
 
+        <activity android:name=".Settings"
+            android:exported="false" />
         <activity
             android:name=".AddFood"
             android:exported="false" />

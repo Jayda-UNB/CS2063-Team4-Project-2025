@@ -72,7 +72,8 @@ class AddFood : AppCompatActivity() {
         }
 
         searchEditText.setOnEditorActionListener { searchText, actionId, _  ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH
+                || actionId == EditorInfo.IME_ACTION_DONE) {
                 val query = searchText.text.toString()
                 searchFoodsByName(query)
                 true
@@ -100,7 +101,7 @@ class AddFood : AppCompatActivity() {
             fullListView()
             Toast.makeText(this, "No items found", Toast.LENGTH_SHORT).show()
         }
-        searchEditText.text.clear()
+        //searchEditText.text.clear()
     }
 
     private fun fullListView() {
@@ -120,6 +121,7 @@ class AddFood : AppCompatActivity() {
             intent.putExtra("food_id", item.fdcId)
             intent.putExtra("food_description", item.description)
             intent.putExtra("food_kcal_per_100g", item.kcalPer100g)
+
             startActivity(intent)
         }
     }

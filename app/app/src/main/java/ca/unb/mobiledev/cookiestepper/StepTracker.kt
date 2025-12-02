@@ -1,8 +1,12 @@
 package ca.unb.mobiledev.cookiestepper
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import ca.unb.mobiledev.cookiestepper.databinding.ActivityStepTrackerBinding
 class StepTracker : AppCompatActivity() {
@@ -13,6 +17,11 @@ class StepTracker : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityStepTrackerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.stepTracker)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            insets
+        }
         replaceFragment(Steps())
 
 
@@ -31,6 +40,13 @@ class StepTracker : AppCompatActivity() {
 
             }
             true
+        }
+
+        val settingButton = findViewById<ImageButton>(R.id.settingsButton)
+
+        settingButton?.setOnClickListener {
+            val settingsIntent = Intent(this@StepTracker, Settings::class.java)
+            startActivity(settingsIntent)
         }
     }
 
