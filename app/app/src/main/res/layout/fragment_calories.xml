@@ -53,6 +53,7 @@
         android:paddingHorizontal="110dp"
         android:text="@string/streak"
         android:textSize="30sp"
+        android:backgroundTint="@color/maroon"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calorieProgressBar"
@@ -64,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Food"
+        android:backgroundTint="@color/maroon"
         app:layout_constraintTop_toBottomOf="@id/streakButton"
         app:layout_constraintBottom_toTopOf="@id/foodHistoryButton"
         app:layout_constraintStart_toStartOf="@id/calorieProgressBar"
@@ -76,6 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View Food History"
+        android:backgroundTint="@color/maroon"
         app:layout_constraintTop_toBottomOf="@id/addFoodButton"
         app:layout_constraintBottom_toTopOf="@id/setDailyButton"
         app:layout_constraintStart_toStartOf="@id/calorieProgressBar"
@@ -94,6 +97,7 @@
         app:layout_constraintEnd_toEndOf="@id/calorieProgressBar"
         android:paddingHorizontal="115dp"
         android:paddingVertical="20dp"
+        android:backgroundTint="@color/maroon"
 
         />
 

@@ -49,6 +49,7 @@
         android:layout_alignLeft="@+id/descriptionTextview"
         android:layout_below="@+id/portionTextView"
         android:layout_marginTop="0dp"
+        android:backgroundTint="@color/maroon"
         android:text="Add" />
 
     <Button
@@ -58,6 +59,7 @@
         android:layout_below="@+id/portionTextView"
         android:layout_toRightOf="@+id/incrementButton"
         android:text="Remove"
+        android:backgroundTint="@color/maroon"
         />
 
     <TextView
@@ -73,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm Food Eaten"
+        android:backgroundTint="@color/maroon"
         android:layout_centerInParent="true"
         android:id="@+id/confirmFoodButton"
         />
